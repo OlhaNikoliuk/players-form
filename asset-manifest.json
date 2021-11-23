@@ -1,21 +1,21 @@
 {
   "files": {
     "main.css": "/sport-summary/static/css/main.1a5b7687.chunk.css",
-    "main.js": "/sport-summary/static/js/main.f78ddc50.chunk.js",
-    "main.js.map": "/sport-summary/static/js/main.f78ddc50.chunk.js.map",
+    "main.js": "/sport-summary/static/js/main.feb903ce.chunk.js",
+    "main.js.map": "/sport-summary/static/js/main.feb903ce.chunk.js.map",
     "runtime-main.js": "/sport-summary/static/js/runtime-main.99a30184.js",
     "runtime-main.js.map": "/sport-summary/static/js/runtime-main.99a30184.js.map",
-    "static/js/2.8ca6120c.chunk.js": "/sport-summary/static/js/2.8ca6120c.chunk.js",
-    "static/js/2.8ca6120c.chunk.js.map": "/sport-summary/static/js/2.8ca6120c.chunk.js.map",
+    "static/js/2.6b41634f.chunk.js": "/sport-summary/static/js/2.6b41634f.chunk.js",
+    "static/js/2.6b41634f.chunk.js.map": "/sport-summary/static/js/2.6b41634f.chunk.js.map",
     "index.html": "/sport-summary/index.html",
     "static/css/main.1a5b7687.chunk.css.map": "/sport-summary/static/css/main.1a5b7687.chunk.css.map",
-    "static/js/2.8ca6120c.chunk.js.LICENSE.txt": "/sport-summary/static/js/2.8ca6120c.chunk.js.LICENSE.txt",
+    "static/js/2.6b41634f.chunk.js.LICENSE.txt": "/sport-summary/static/js/2.6b41634f.chunk.js.LICENSE.txt",
     "static/media/Icon.1238bbad.svg": "/sport-summary/static/media/Icon.1238bbad.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.99a30184.js",
-    "static/js/2.8ca6120c.chunk.js",
+    "static/js/2.6b41634f.chunk.js",
     "static/css/main.1a5b7687.chunk.css",
-    "static/js/main.f78ddc50.chunk.js"
+    "static/js/main.feb903ce.chunk.js"
   ]
 }
