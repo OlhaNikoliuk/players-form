@@ -12,3 +12,8 @@ export async function getPlayersList(page, per_page) {
   );
   return data.data;
 }
+
+export async function getAllPlayersList() {
+  const { data } = await axios.get(`/players`);
+  return data.data;
+}

@@ -20,7 +20,7 @@ import { CardsWrap } from './PlayersTable.styled';
 import PlayerCard from '../PlayerCard/PlayerCard';
 import * as API from '../../services/api';
 import { useStyles } from './muiTableStyles';
-
+import { getAllPlayersList } from '../../services/api';
 function TablePaginationActions(props) {
   const { page, onPageChange, labelPage } = props;
   const theme = useTheme();
@@ -75,6 +75,14 @@ export default function PlayersTable() {
     }
     fetchPlayers();
   }, [page, rowsPerPage]);
+
+  useEffect(() => {
+    async function fetchPlayers() {
+      const players = await getAllPlayersList();
+      setPlayers((state) => [...state, ...players]);
+    }
+    fetchPlayers();
+  }, []);
 
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - players.length) : 0;
