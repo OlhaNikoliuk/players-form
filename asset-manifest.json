@@ -1,21 +1,21 @@
 {
   "files": {
-    "main.css": "/sport-summary/static/css/main.bd3d2f54.chunk.css",
-    "main.js": "/sport-summary/static/js/main.083e105b.chunk.js",
-    "main.js.map": "/sport-summary/static/js/main.083e105b.chunk.js.map",
+    "main.css": "/sport-summary/static/css/main.1a5b7687.chunk.css",
+    "main.js": "/sport-summary/static/js/main.f78ddc50.chunk.js",
+    "main.js.map": "/sport-summary/static/js/main.f78ddc50.chunk.js.map",
     "runtime-main.js": "/sport-summary/static/js/runtime-main.99a30184.js",
     "runtime-main.js.map": "/sport-summary/static/js/runtime-main.99a30184.js.map",
-    "static/js/2.745e199b.chunk.js": "/sport-summary/static/js/2.745e199b.chunk.js",
-    "static/js/2.745e199b.chunk.js.map": "/sport-summary/static/js/2.745e199b.chunk.js.map",
+    "static/js/2.8ca6120c.chunk.js": "/sport-summary/static/js/2.8ca6120c.chunk.js",
+    "static/js/2.8ca6120c.chunk.js.map": "/sport-summary/static/js/2.8ca6120c.chunk.js.map",
     "index.html": "/sport-summary/index.html",
-    "static/css/main.bd3d2f54.chunk.css.map": "/sport-summary/static/css/main.bd3d2f54.chunk.css.map",
-    "static/js/2.745e199b.chunk.js.LICENSE.txt": "/sport-summary/static/js/2.745e199b.chunk.js.LICENSE.txt",
+    "static/css/main.1a5b7687.chunk.css.map": "/sport-summary/static/css/main.1a5b7687.chunk.css.map",
+    "static/js/2.8ca6120c.chunk.js.LICENSE.txt": "/sport-summary/static/js/2.8ca6120c.chunk.js.LICENSE.txt",
     "static/media/Icon.1238bbad.svg": "/sport-summary/static/media/Icon.1238bbad.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.99a30184.js",
-    "static/js/2.745e199b.chunk.js",
-    "static/css/main.bd3d2f54.chunk.css",
-    "static/js/main.083e105b.chunk.js"
+    "static/js/2.8ca6120c.chunk.js",
+    "static/css/main.1a5b7687.chunk.css",
+    "static/js/main.f78ddc50.chunk.js"
   ]
 }
