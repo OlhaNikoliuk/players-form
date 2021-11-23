@@ -1,4 +1,4 @@
-import {ContainerWrap} from './Container.styled'
+import { ContainerWrap } from './Container.styled';
 
 function Container({ children }) {
   return <ContainerWrap>{children}</ContainerWrap>;

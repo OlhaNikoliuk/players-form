@@ -1,5 +1,6 @@
 import * as React from 'react';
-import PropTypes from 'prop-types';
+import { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
@@ -15,13 +16,12 @@ import Paper from '@mui/material/Paper';
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 
-import { makeStyles } from '@mui/styles';
-
+import { fetchTeams } from '../../redux/teams/teamsOperations';
 import { ConfWrap } from './TeamsTable.styled';
-import { red } from '@mui/material/colors';
+import { useStyles } from './muiTableStyles';
 
 function TablePaginationActions(props) {
-  const { count, page, rowsPerPage, onPageChange, labelPage } = props;
+  const { page, onPageChange, labelPage } = props;
   const theme = useTheme();
 
   const handleBackButtonClick = (event) => {
@@ -48,7 +48,7 @@ function TablePaginationActions(props) {
       </IconButton>
       <IconButton
         onClick={handleNextButtonClick}
-        disabled={page >= Math.ceil(count / rowsPerPage) - 1}
+        // disabled={page >= Math.ceil(count / rowsPerPage) - 1}
         aria-label='next page'
       >
         {theme.direction === 'rtl' ? (
@@ -60,48 +60,13 @@ function TablePaginationActions(props) {
     </Box>
   );
 }
-TablePaginationActions.propTypes = {
-  count: PropTypes.number.isRequired,
-  onPageChange: PropTypes.func.isRequired,
-  page: PropTypes.number.isRequired,
-  rowsPerPage: PropTypes.number.isRequired,
-};
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    '& .MuiInputBase-root-MuiTablePagination-select': {
-      border: `1px solid red`,
-    },
-  },
-  footer: {
-    '& tr ': {
-      height: '68px',
-    },
-  },
-
-  pagination: {
-    borderBottom: 'none',
-    '& div.MuiInputBase-root': {
-      width: '77px',
-      height: '40px',
-      border: '1px solid #EEEEEE',
-      borderRadius: '4px',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    '& p.MuiTablePagination-displayedRows': {
-      width: '900px',
-      display: 'flex',
-      justifyContent: 'space-between',
-    },
-  },
-}));
-
-function TeamsTable({ teams }) {
+function TeamsTable() {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const teams = useSelector((state) => state.teams.items);
 
+  const dispatch = useDispatch();
   const classes = useStyles();
 
   const emptyRows =
@@ -116,30 +81,31 @@ function TeamsTable({ teams }) {
     setPage(0);
   };
 
+  useEffect(() => {
+    dispatch(fetchTeams({ page: page + 1, per_page: rowsPerPage }));
+  }, [dispatch, page, rowsPerPage]);
+
   return (
-    <TableContainer
-      component={Paper}
-      className={classes.root}
-      style={{
-        width: '100%',
-        overflow: 'hidden',
-        paddingLeft: '0px',
-        boxShadow: 'none',
-        borderRadius: '6px',
-      }}
-    >
-      <Table
-        sx={{ minWidth: 500 }}
-        aria-label='custom pagination table'
-        style={{ width: '100%', tableLayout: 'auto' }}
-      >
+    <TableContainer component={Paper} className={classes.root}>
+      <Table sx={{ minWidth: 500 }} aria-label='custom pagination table'>
         <TableHead>
           <TableRow>
-            <TableCell style={{ width: 110 }}>Name</TableCell>
-            <TableCell style={{ width: 131 }}>City</TableCell>
-            <TableCell style={{ width: 134 }}>Abbreviations</TableCell>
-            <TableCell style={{ width: 124 }}>Conference</TableCell>
-            <TableCell style={{ width: '61%' }}></TableCell>
+            <TableCell className={classes.head} style={{ width: 110 }}>
+              Name
+            </TableCell>
+            <TableCell className={classes.head} style={{ width: 131 }}>
+              City
+            </TableCell>
+            <TableCell className={classes.head} style={{ width: 134 }}>
+              Abbreviations
+            </TableCell>
+            <TableCell className={classes.head} style={{ width: 124 }}>
+              Conference
+            </TableCell>
+            <TableCell
+              className={classes.head}
+              style={{ width: '61%' }}
+            ></TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -148,15 +114,29 @@ function TeamsTable({ teams }) {
             : teams
           ).map(({ name, city, abbreviation, conference, id }) => (
             <TableRow key={id}>
-              <TableCell style={{ width: 110 }} align='left'>
+              <TableCell
+                className={classes.body}
+                style={{ width: 110 }}
+                align='left'
+              >
                 {name}
               </TableCell>
 
-              <TableCell style={{ width: 131 }}>{city}</TableCell>
-              <TableCell style={{ width: 134 }} align='left'>
+              <TableCell className={classes.body} style={{ width: 131 }}>
+                {city}
+              </TableCell>
+              <TableCell
+                className={classes.body}
+                style={{ width: 134 }}
+                align='left'
+              >
                 {abbreviation}
               </TableCell>
-              <TableCell style={{ width: 124 }} align='left'>
+              <TableCell
+                className={classes.body}
+                style={{ width: 124 }}
+                align='left'
+              >
                 <ConfWrap conf={conference.toLowerCase()}>
                   {conference}
                 </ConfWrap>
@@ -179,15 +159,10 @@ function TeamsTable({ teams }) {
               labelRowsPerPage={'Items per page'}
               count={teams.length}
               rowsPerPage={rowsPerPage}
-              page={page}
+              page={page > 0 && teams.length <= rowsPerPage ? 0 : page}
               onPageChange={handleChangePage}
               onRowsPerPageChange={handleChangeRowsPerPage}
               ActionsComponent={TablePaginationActions}
-              // labelDisplayedRows={(from = page) =>
-              //   `Displaying ${from.from}-${
-              //     from.to === -1 ? from.count / rowsPerPage : from.to
-              //   } of ${from.count} items`
-              // }
               labelDisplayedRows={(from = page) => {
                 return (
                   <>

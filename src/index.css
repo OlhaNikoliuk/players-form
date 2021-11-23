@@ -61,40 +61,11 @@ div.MuiInputBase-root-MuiTablePagination-select {
   font-family: 'Inter', sans-serif;
 }
 
-.MuiTableCell-root.MuiTableCell-head {
-  font-weight: 700;
-  font-size: 16px;
-  line-height: 1.5;
-  color: #14141e;
+/*--------  pagination ----------------*/
 
-  background-color: #ede6fb;
-  padding: 15px 0 15px 15px;
-}
-/* thead > th.MuiTableCell-root {
-  background-color: #ede6fb;
-  padding: 15px 0 15px 15px;
-} */
-td.MuiTableCell-root {
-  text-align: left;
-  padding: 15px 0 15px 15px;
-  font-family: 'Inter', sans-serif;
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 1.5;
-  color: #14141e;
-}
-td.MuiTableCell-root:nth-child(2),
-td.MuiTableCell-root:nth-child(3) {
-  font-weight: 400;
-}
-table > thead.MuiTableHead-root {
-  background-color: #ede6fb;
-}
 div.MuiTablePagination-spacer {
   flex: 0;
 }
-
-/*--------  pagination ----------------*/
 .MuiToolbar-root.MuiToolbar-gutters {
   padding-left: 0;
 }
@@ -108,14 +79,7 @@ p.MuiTablePagination-displayedRows {
   line-height: 1.29px;
   color: #757575;
 }
-/* p.MuiTablePagination-selectLabel
-  > .MuiInputBase-root-MuiTablePagination-select {
-  border: 1px solid red;
-}
 
-.MuiTablePagination-select {
-  color: red;
-} */
 div.MuiBox-root {
   margin-left: auto;
 }

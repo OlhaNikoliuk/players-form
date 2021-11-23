@@ -1,11 +1,9 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { Formik, ErrorMessage, getIn } from 'formik';
+import { Formik, ErrorMessage } from 'formik';
 import { v4 as uuidv4 } from 'uuid';
 import validationSchema from '../../utils/validationSchema';
 import SectionTitle from '../SectionTitle/SectionTitle';
-
-// import toast from 'react-hot-toast';
 import { addTeam } from '../../redux/teams/teamSlices';
 import {
   FormWrap,
@@ -18,14 +16,7 @@ import {
   ErrorMsg,
   Button,
 } from './Form.styled';
-
-function getStyles(errors, fieldName) {
-  if (getIn(errors, fieldName)) {
-    return {
-      border: '1px solid red',
-    };
-  }
-}
+import getStyles from '../../utils/errorMsgStyles';
 
 const Form = () => {
   const dispatch = useDispatch();
@@ -47,7 +38,6 @@ const Form = () => {
           dispatch(
             addTeam({ id: uuidv4(), name, city, abbreviation, conference })
           );
-          console.log(name);
           resetForm();
           setSubmitting(false);
         }}

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import PropTypes from 'prop-types';
+import { useState, useEffect } from 'react';
 import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Table from '@mui/material/Table';
@@ -13,15 +13,16 @@ import Paper from '@mui/material/Paper';
 import IconButton from '@mui/material/IconButton';
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
-import { makeStyles } from '@mui/styles';
 import TablePagination from '@mui/material/TablePagination';
 import SectionTitle from '../SectionTitle/SectionTitle';
 
 import { CardsWrap } from './PlayersTable.styled';
 import PlayerCard from '../PlayerCard/PlayerCard';
+import * as API from '../../services/api';
+import { useStyles } from './muiTableStyles';
 
 function TablePaginationActions(props) {
-  const { count, page, rowsPerPage, onPageChange, labelPage } = props;
+  const { page, onPageChange, labelPage } = props;
   const theme = useTheme();
 
   const handleBackButtonClick = (event) => {
@@ -48,7 +49,7 @@ function TablePaginationActions(props) {
       </IconButton>
       <IconButton
         onClick={handleNextButtonClick}
-        disabled={page >= Math.ceil(count / rowsPerPage) - 1}
+        // disabled={page >= Math.ceil(count / rowsPerPage) - 1}
         aria-label='next page'
       >
         {theme.direction === 'rtl' ? (
@@ -61,58 +62,19 @@ function TablePaginationActions(props) {
   );
 }
 
-TablePaginationActions.propTypes = {
-  count: PropTypes.number.isRequired,
-  onPageChange: PropTypes.func.isRequired,
-  page: PropTypes.number.isRequired,
-  rowsPerPage: PropTypes.number.isRequired,
-};
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    '& .MuiInputBase-root-MuiTablePagination-select': {
-      border: `1px solid red`,
-    },
-
-    '& tbody.MuiTableBody-root': {
-      display: 'grid',
-      maxWidth: '100vw',
-      gridTemplateColumns: 'repeat(auto-fill, minmax(303px, 1fr))',
-      gridGap: '24px',
-      margin: '0 auto',
-    },
-  },
-
-  footer: {
-    '& tr ': {
-      height: '68px',
-    },
-  },
-
-  pagination: {
-    borderBottom: 'none',
-    '& div.MuiInputBase-root': {
-      width: '77px',
-      height: '40px',
-      border: '1px solid #EEEEEE',
-      borderRadius: '4px',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    '& p.MuiTablePagination-displayedRows': {
-      width: '900px',
-      display: 'flex',
-      justifyContent: 'space-between',
-    },
-  },
-}));
-
-export default function PlayersTable({ players }) {
+export default function PlayersTable() {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(8);
-
+  const [players, setPlayers] = useState([]);
   const classes = useStyles();
+
+  useEffect(() => {
+    async function fetchPlayers() {
+      const players = await API.getPlayersList(page + 1, rowsPerPage);
+      setPlayers((state) => [...state, ...players]);
+    }
+    fetchPlayers();
+  }, [page, rowsPerPage]);
 
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - players.length) : 0;
@@ -173,11 +135,11 @@ export default function PlayersTable({ players }) {
             <TableRow>
               <TablePagination
                 className={classes.pagination}
-                rowsPerPageOptions={[8, 16, 32, { label: 'All', value: -1 }]}
+                rowsPerPageOptions={[8, 16, 24, { label: 'All', value: -1 }]}
                 labelRowsPerPage={'Items per page'}
                 count={players.length}
                 rowsPerPage={rowsPerPage}
-                page={page}
+                page={page > 0 && players.length <= rowsPerPage ? 0 : page}
                 onPageChange={handleChangePage}
                 onRowsPerPageChange={handleChangeRowsPerPage}
                 ActionsComponent={TablePaginationActions}
